@@ -1529,6 +1529,7 @@ class extends Component {
 
 					const alert  = `<span class="indicator ${color}"/> ${frappe.user.full_name(user)} is currently <b>${update.status}</b>`
 					frappe.show_alert(alert, 3)
+
 				}
 			}
 		})
@@ -1577,6 +1578,30 @@ class extends Component {
 						this.base.firstChild._component.toggle()
 					}.bind(this, r)
 				})
+				
+				const OPTIONS = {
+					icon: frappe.assets.image('favicon.png', 'erpnext'),
+					lang: frappe.boot.lang || "en"
+				}
+				let options = Object.assign({ }, OPTIONS)
+
+				if (!("Notification" in window)) {
+					alert("This browser does not support desktop notification");
+				}
+				// Let's check whether notification permissions have already been granted
+				else if (Notification.permission === "granted") {
+					// If it's okay let's create a notification
+					const notification = new Notification(`${user}: ${r.content}`, options)
+				}
+				// Otherwise, we need to ask the user for permission
+				else if (Notification.permission !== "denied") {
+					Notification.requestPermission().then(function (permission) {
+					// If the user accepts, let's create a notification
+					if (permission === "granted") {
+						const notification = new Notification(`${user}: ${r.content}`, options)
+					}
+					});
+				}
 			}
 
 			if ( r.room === state.room.name ) {
