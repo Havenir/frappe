@@ -1029,7 +1029,9 @@ frappe.chat.sound.play  = function (name, volume = 0.1) {
 
 	frappe.log.info('Playing sound.')
 	$audio.attr('src', `${frappe.chat.sound.PATH}/chat-${name}.mp3`)
-	$audio[0].play()
+	$audio.on("canplay", function(){
+		$audio[0].play()
+	})
 }
 frappe.chat.sound.PATH  = '/assets/frappe/sounds'
 
@@ -2645,6 +2647,20 @@ frappe.notify     = (string, options) => {
 	Notification.requestPermission(status => {
 		if ( status === "granted" ) {
 			const notification = new Notification(string, options)
+			frappe.chat.message.on.create(message => {
+				const user = frappe.user.full_name(message.user);
+
+				if ( user !== "You" ) {
+					frappe.chat.room.get(message.room, room => {
+						const name  = room.type === "Direct" ? user : room.room_name;
+						const title = `New message from ${name}`;
+
+						frappe.notify(title, {
+							body: `${user}: ${message.content}`
+						});
+					});
+				}
+			});
 		}
 	})
 }
