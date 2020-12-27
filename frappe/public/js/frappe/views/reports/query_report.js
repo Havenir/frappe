@@ -441,8 +441,10 @@ frappe.views.QueryReport = class QueryReport extends frappe.views.BaseList {
 		let data = this.data;
 
 		if (this.raw_data.add_total_row) {
+			console.log(data);
 			data = data.slice();
 			data.splice(-1, 1);
+
 		}
 
 		if (this.datatable) {
@@ -678,7 +680,7 @@ frappe.views.QueryReport = class QueryReport extends frappe.views.BaseList {
 					// totalRow doesn't have a data object
 					// proxy it using the first data object
 					// this is needed only for currency formatting
-					data = this.data[0];
+					data = this.data[this.data.length - 1];
 				}
 				return frappe.format(value, column,
 					{for_print: false, always_show_decimals: true}, data);
