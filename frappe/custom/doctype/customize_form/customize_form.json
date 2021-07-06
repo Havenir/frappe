@@ -21,6 +21,7 @@
   "track_views",
   "allow_auto_repeat",
   "allow_import",
+  "enable_qr_code",
   "fields_section_break",
   "fields",
   "naming_section",
@@ -270,6 +271,7 @@
   },
   {
    "collapsible": 1,
+   "depends_on": "doc_type",
    "fieldname": "naming_section",
    "fieldtype": "Section Break",
    "label": "Naming"
@@ -289,6 +291,12 @@
   {
    "fieldname": "column_break_26",
    "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_qr_code",
+   "fieldtype": "Check",
+   "label": "Enable QR Code"
   }
  ],
  "hide_toolbar": 1,
@@ -297,7 +305,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2021-06-21 19:01:06.920663",
+ "modified": "2021-07-05 23:44:51.705442",
  "modified_by": "Administrator",
  "module": "Custom",
  "name": "Customize Form",
