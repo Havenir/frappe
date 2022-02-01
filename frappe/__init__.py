@@ -1318,8 +1318,8 @@ def get_hooks(hook=None, default=None, app_name=None):
 
 	def load_app_hooks(app_name=None):
 		hooks = {}
-		for app in [app_name] if app_name else get_installed_apps(sort=True):
-			app = "frappe" if app == "webnotes" else app
+		for app in [app_name] if app_name else get_installed_apps():
+			app = "frappe" if app=="webnotes" else app
 			try:
 				app_hooks = get_module(app + ".hooks")
 			except ImportError:
