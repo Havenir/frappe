@@ -82,6 +82,7 @@ class BackupGenerator:
 
 		site = frappe.local.site or frappe.generate_hash(length=8)
 		self.site_slug = site.replace(".", "_")
+		self.todays_date = now_datetime().strftime("%Y%m%d_%H%M%S")
 		self.verbose = verbose
 		self.setup_backup_directory()
 		self.setup_backup_tables()
